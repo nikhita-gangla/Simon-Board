@@ -1,0 +1,1 @@
+"./playsound2.obj" "./random.obj" "./simonmain.obj" "./turnonlights.obj" "../lnk_msp430g2553.cmd" -llibc.a 
