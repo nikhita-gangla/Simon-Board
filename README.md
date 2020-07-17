@@ -1,5 +1,5 @@
 # Simon Game
-This is my version of the classic [Simon game] which tests the player's memory skill. The hardware for the game is laid out on a PCB designed using EAGLE, while the C code (stored on a MSP430 microcontroller) runs the gameplay.
+This is my version of the classic [Simon game] which tests the player's memory skill. The hardware for the game is laid out on a PCB designed using EAGLE, while the C code (stored on a MSP430 power microcontroller) runs the gameplay.
 ![IMG_2722](https://user-images.githubusercontent.com/62456147/87822116-7b2d1d00-c8a3-11ea-889e-653f60676ee5.jpg)
 
 # Video Demo
