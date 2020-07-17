@@ -1,5 +1,18 @@
 # Simon Game
-This is my version of the classic [Simon game] which tests the player's memory skill.
+This is my version of the classic [Simon game] which tests the player's memory skill. The hardware for the game is laid out on a single-layer PCB designed using EAGLE, while the C code (stored on a MSP430 microcontroller) runs the gameplay.
+
+# Video Demo
+Watch the [video demo] to see how the game is played on the Simon board.
+
+# Technologies
+* C
+* Code Composer Studio
+* EAGLE
+
+# Hardware 
+* TI MSP430 Power Microcontroller
+* DotStar Addressable RGB LED
+
 
 *** GAMEPLAY ***
 Upon turning on, the game will have a "start" animation consisting of 4 LED colors rotating through the LEDs, which will continue playing until the player presses any button. After a button is pressed, the game will immediately start. A sequence of length 3 will be played, and then when the player inputs the correct sequence using the buttons, the same sequence with one additional tone at the end will be played. This pattern will continue until the player either eventually correctly plays a sequence of (sequencelength), which can be changed easily at the beginning of the simonmain.c file, or if the player loses by playing an incorrect tone (the player will lose immediately an incorrect button is pressed). The player could also lose if they wait too long to press a button (around .5 s), in which case they lose by "timing out".
@@ -76,3 +89,4 @@ The length of the sequence required to win can also be changed easily, by changi
 
 
    [Simon game]: https://en.wikipedia.org/wiki/Simon_(game)
+   [video demo]: https://drive.google.com/file/d/1mtxt7HwAMOKZ6hkkJ4arVjRnBYrZxwgK/view
