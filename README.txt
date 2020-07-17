@@ -1,4 +1,5 @@
-
+# Simon Game
+This is my version of the classic [Simon game] which tests the player's memory skill.
 
 *** GAMEPLAY ***
 Upon turning on, the game will have a "start" animation consisting of 4 LED colors rotating through the LEDs, which will continue playing until the player presses any button. After a button is pressed, the game will immediately start. A sequence of length 3 will be played, and then when the player inputs the correct sequence using the buttons, the same sequence with one additional tone at the end will be played. This pattern will continue until the player either eventually correctly plays a sequence of (sequencelength), which can be changed easily at the beginning of the simonmain.c file, or if the player loses by playing an incorrect tone (the player will lose immediately an incorrect button is pressed). The player could also lose if they wait too long to press a button (around .5 s), in which case they lose by "timing out".
@@ -68,3 +69,10 @@ The game can be made harder or easier by reducing or increasing the time the use
 
 The length of the sequence required to win can also be changed easily, by changing the variable sequencelength at the beginning of the simonmain.c file. The smallest length allowable for this variable is 3, and the largest length allowable for this variable is 30.
 
+
+
+
+
+
+
+   [Simon game]: https://en.wikipedia.org/wiki/Simon_(game)
