@@ -19,7 +19,7 @@ Upon turning on, the game will have a "start" animation consisting of 4 LED colo
 
 There will both be "win" animations and "lose" animations which will be the green and red LEDs flashing on the board respectively. When either the "win" or the the "lose" animation is playing, the player can exit the animation by pressing any button, which will bring them back to the "start" animation, repeating the cycle.
 
-# Board Design
+## Board Design
 The board is designed on a single-layer PCB using EAGLE. The board contains 4 RGB LEDS with 4 corresponding buttons, and they are all connected to an MSP430 powercontroller, which controls their on/off state, and in the case of the LEDs, the data being sent to them. The MSP430 also has a piezobuzzer which can  be buzzed at different frequencies, and an ADC which allows us to control the brightness and color of the LEDS. Below is the button layout, with connection to the MSP430 ports. The button S1 is connected to P2.0 of the MSP 430, the button S2 is connected to P2.2, S3 is connected to P2.3 and S4 is connected to P2.4.
 
     /* BUTTON LAYOUT */
@@ -28,10 +28,10 @@ The board is designed on a single-layer PCB using EAGLE. The board contains 4 RG
     /*         |            |        */
     /* (P2.0) S1 --------- S4 (P2.4) */
 
-# Code Architecture
+## Code Architecture
 The code is separated into `simonmain.c` (which contains the function main()), `random.c`, `turnonlights.c`, and `playsound.c`.
 
-## simonmain.c
+### simonmain.c
 simonmain.c is the main driver file for the game. The `main()` function first calls `init2()`, which initializes the MSP430, and `simon_logic()` which actually implements the logic for the game by calling on other functions. These two functions are continuously called in a never-ending while loop, so the game will play forever, until the board is powered off. 
 
 `simon_main()` initializes the buttons on the board by calling `initgame()`, which generates the sequence to be played for the specific game using the function `generatesequence()`. Next, starting from a slice of length 3, `simonmain()` generates the current slice to be played using `generatecurrseuqnce()` and then creates an array which can be played using `convertnumstosound()`, which changes a global array variable which will be passed into `playsound2()` to play. After the buzzer plays the sequence for the user, the function `soundlightonpress_and_check()` is called, which not only registers the button sequence and makes the buttons that the user presses both have a corresponding light and sound, but also checks that the sequence pressed by the user is correct, and finally, implements the timeout so that if the user takes too long to press a button, the user loses the game. If the user has gotten the sequence correct, a longer slice starts playing, or if they already played the maximum sequence length, the flag won is changed to won, and the `winlose_seq()` function is called with won as the input, which plays the win animation. If the player loses by either playing the wrong sequence or waiting too long to press the button, the variable won is set to zero, and the `winlose_seq()` function is played with lose as the input, this time resulting in the lose animation being played. The animation will play as long as there is no button press registered, upon when `simon_logic()` will restart.
