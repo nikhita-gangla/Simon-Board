@@ -2,19 +2,19 @@
 This is my version of the classic [Simon game] which tests the player's memory skill. The hardware for the game is laid out on a PCB designed using EAGLE, while the C code (stored on a MSP430 power microcontroller) runs the gameplay.
 ![IMG_2722](https://user-images.githubusercontent.com/62456147/87822116-7b2d1d00-c8a3-11ea-889e-653f60676ee5.jpg)
 
-# Video Demo
+## Video Demo
 Watch the [video demo] to see the homemade version of Simon in action.
 
-# Technologies
+## Technologies
 * C
 * Code Composer Studio
 * EAGLE
 
-# Hardware 
+## Hardware 
 * TI MSP430 Power Microcontroller
 * DotStar Addressable RGB LED
 
-# Gameplay
+## Gameplay
 Upon turning on, the game will have a "start" animation consisting of 4 LED colors rotating through the LEDs, which will continue playing until the player presses any button. After a button is pressed, the game will immediately start. A sequence of length 3 will be played, and then when the player inputs the correct sequence using the buttons, the same sequence with one additional tone at the end will be played. This pattern will continue until the player either eventually correctly plays a sequence of `sequencelength`, which can be changed easily at the beginning of the simonmain.c file, or if the player loses by playing an incorrect tone (the player will lose immediately an incorrect button is pressed). The player could also lose if they wait too long to press a button (more than 1.25s), in which case they lose by "timing out". The duration that results in a timeout can be increased or decreased easily in the beginning of the simonmain.c file, by changing the variable `timelimit`.
 
 There will both be "win" animations and "lose" animations which will be the green and red LEDs flashing on the board respectively. When either the "win" or the the "lose" animation is playing, the player can exit the animation by pressing any button, which will bring them back to the "start" animation, repeating the cycle.
@@ -38,22 +38,22 @@ simonmain.c is the main driver file for the game. The `main()` function first ca
 
 A couple of points to note: in order to give the user time to respond between pressing the buttons and seeing the end sequences, the MSP430 is put into LPM, which gets kicked when a button is pressed. Button presses are mainly registered using interrupts. As such, there is a Port 2 ISR for the MSP430.
 
-## random.c
+### random.c
 `random.c` contains the user-implemented function `rand()`, which generates a random number. This random number is used by `generatesequence()` in `main()` to generate a random sequence for the player.
 
-## playsound2.c
+### playsound2.c
 `playsound2.c` contains the function `playsound2()`, which is called by `simon_logic()` whenever a sequence needs to be played, and is called by `soundlightonpress_and_check()` so that the corresponding tone is played and LED lights up whenever the user presses a button.
 
-## turnonlights.c
+### turnonlights.c
 `turnonlights.c` contains the functions `led1_blue_on()`, `led2_green_on()`, `led3_red_on()`, `led4_yellow_on()`, which is called by `soundlightonpress_and_check()` so that a single LED is lit up when its corresponding button is pressed. The file also contains the function `start_seq_on()`, which plays the start animation, `led_off()`, which turns the LEDs off so that there are visual breaks and cues for the user while playing Simon, and `winlose_seq()`, which plays the win animation or lose animation, depending on the input to it. These 3 functions are all called by `simon_logic()`.
 
-# Notes
+## Notes
 The game can be made harder or easier by reducing or increasing the time the user has to press a button before the game times out. The default is set to 1.25 seconds, and the variable called `timelimit` has been set to 5. Increasing or reducing this variable by 1 would increase or decrease the variable by 0.25 seconds. 
 
 The length of the sequence required to win can be changed, by changing the variable `sequencelength` at the beginning of the simonmain.c file. The smallest length allowable for this variable is 3, and the largest length allowable for this variable is 30.
 
 
-# References
+## References
 * [MSP430G2553 Datasheet]
 * [MSP430x2xx Family User's Guide]
 
